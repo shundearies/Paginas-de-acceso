@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>SkipperTv | Amigos</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect"
+href="https://fonts.gstatic.com"
+crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+rel="stylesheet">
+
+<style>
+
+*{
+
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+
+}
+
+body{
+
+overflow-x:hidden;
+
+min-height:100vh;
+
+background:linear-gradient(
+135deg,
+#0f2027,
+#203a43,
+#2c5364);
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+padding:30px;
+
+position:relative;
+
+}
+
+/* ========= Fondo Animado ========= */
+
+body::before{
+
+content:"";
+
+position:fixed;
+
+width:200%;
+
+height:200%;
+
+background:
+
+radial-gradient(circle,#ffffff22 2px,transparent 3px);
+
+background-size:55px 55px;
+
+animation:fondo 28s linear infinite;
+
+z-index:-2;
+
+}
+
+@keyframes fondo{
+
+0%{
+
+transform:translate(0,0);
+
+}
+
+100%{
+
+transform:translate(-120px,-120px);
+
+}
+
+}
+
+/* ========= Tarjeta Principal ========= */
+
+.container{
+
+width:100%;
+
+max-width:760px;
+
+background:rgba(255,255,255,.15);
+
+backdrop-filter:blur(18px);
+
+border-radius:30px;
+
+padding:35px;
+
+border:1px solid rgba(255,255,255,.2);
+
+box-shadow:
+
+0 20px 60px rgba(0,0,0,.35);
+
+animation:entrada 1s;
+
+}
+
+@keyframes entrada{
+
+from{
+
+opacity:0;
+
+transform:translateY(40px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+.logo{
+
+width:145px;
+
+display:block;
+
+margin:auto;
+
+animation:flotar 3s ease-in-out infinite;
+
+}
+
+@keyframes flotar{
+
+0%{
+
+transform:translateY(0);
+
+}
+
+50%{
+
+transform:translateY(-8px);
+
+}
+
+100%{
+
+transform:translateY(0);
+
+}
+
+}
+
+h1{
+
+margin-top:15px;
+
+text-align:center;
+
+font-size:40px;
+
+font-weight:700;
+
+color:white;
+
+text-shadow:
+
+0 0 15px #6ec6ff;
+
+}
+
+.sub{
+
+margin-top:10px;
+
+text-align:center;
+
+font-size:19px;
+
+color:#e6f6ff;
+
+margin-bottom:35px;
+
+}
+
+/* ========= Tarjetas ========= */
+
+.card{
+
+background:rgba(255,255,255,.12);
+
+border:1px solid rgba(255,255,255,.18);
+
+border-radius:20px;
+
+padding:20px;
+
+margin-bottom:18px;
+
+transition:.35s;
+
+overflow:hidden;
+
+}
+
+.card:hover{
+
+transform:translateY(-5px);
+
+box-shadow:
+
+0 12px 30px rgba(0,0,0,.25);
+
+}
+
+.top{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+}
+
+.titulo{
+
+font-size:21px;
+
+font-weight:600;
+
+color:white;
+
+}
+
+/* ========= Botones ========= */
+
+button{
+
+border:none;
+
+cursor:pointer;
+
+font-weight:bold;
+
+transition:.30s;
+
+}
+
+.ver{
+
+background:linear-gradient(
+
+45deg,
+
+#2196F3,
+
+#00BCD4
+
+);
+
+color:white;
+
+padding:11px 22px;
+
+border-radius:14px;
+
+font-size:15px;
+
+box-shadow:
+
+0 6px 15px rgba(0,0,0,.25);
+
+}
+
+.ver:hover{
+
+transform:scale(1.08);
+
+}
+
+.ver:disabled{
+
+background:#666;
+
+cursor:not-allowed;
+
+transform:none;
+
+}
+
+.copy{
+
+display:none;
+
+margin-top:18px;
+
+background:linear-gradient(
+
+45deg,
+
+#4CAF50,
+
+#2E7D32
+
+);
+
+color:white;
+
+padding:10px 22px;
+
+border-radius:12px;
+
+font-size:15px;
+
+}
+
+/* ========= Sobre ========= */
+
+.sobre{
+
+margin-top:20px;
+
+display:none;
+
+animation:abrir .8s;
+
+}
+
+@keyframes abrir{
+
+0%{
+
+opacity:0;
+
+transform:scale(.5) rotateX(90deg);
+
+}
+
+100%{
+
+opacity:1;
+
+transform:scale(1) rotateX(0);
+
+}
+
+}
+
+.papel{
+
+background:white;
+
+color:#333;
+
+padding:22px;
+
+border-radius:18px;
+
+font-size:18px;
+
+line-height:1.8;
+
+box-shadow:
+
+0 10px 25px rgba(0,0,0,.20);
+
+}
+
+/* ========= Footer ========= */
+
+footer{
+
+margin-top:25px;
+
+text-align:center;
+
+color:white;
+
+font-size:14px;
+
+opacity:.8;
+
+}
+
+/* ========= Modal ========= */
+
+.modal{
+
+position:fixed;
+
+left:0;
+
+top:0;
+
+width:100%;
+
+height:100%;
+
+display:none;
+
+justify-content:center;
+
+align-items:center;
+
+background:rgba(0,0,0,.45);
+
+backdrop-filter:blur(8px);
+
+padding:20px;
+
+z-index:999;
+
+}
+
+.modal-box{
+
+width:100%;
+
+max-width:420px;
+
+background:white;
+
+border-radius:25px;
+
+padding:30px;
+
+text-align:center;
+
+animation:entrada .5s;
+
+}
+
+.modal-box h2{
+
+color:#1976D2;
+
+margin-bottom:12px;
+
+}
+
+.modal-box p{
+
+font-size:17px;
+
+line-height:1.7;
+
+color:#555;
+
+margin-bottom:20px;
+
+}
+
+.ok{
+
+padding:12px 28px;
+
+border-radius:12px;
+
+background:#1976D2;
+
+color:white;
+
+font-size:16px;
+
+}
+
+.ok:hover{
+
+background:#0d47a1;
+
+}
+
+/* ========= Confeti ========= */
+
+.confetti{
+
+position:fixed;
+
+width:10px;
+
+height:10px;
+
+border-radius:50%;
+
+pointer-events:none;
+
+z-index:2000;
+
+animation:c 3s linear forwards;
+
+}
+
+@keyframes c{
+
+0%{
+
+transform:translateY(0) rotate(0);
+
+opacity:1;
+
+}
+
+100%{
+
+transform:translateY(700px) rotate(900deg);
+
+opacity:0;
+
+}
+
+}
+
+@media(max-width:700px){
+
+.container{
+
+padding:22px;
+
+}
+
+h1{
+
+font-size:32px;
+
+}
+
+.top{
+
+flex-direction:column;
+
+gap:15px;
+
+}
+
+.ver{
+
+width:100%;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<img
+class="logo"
+src="https://raw.githubusercontent.com/shundearies/skipperImg/refs/heads/main/logo_inicio.png">
+
+<h1>Cuentas Iptv Gratis</h1>
+
+<div class="sub">
+
+❤️ Las Cuentas iptv se actulizan constantemente ❤️
+
+</div>
+
+<div id="listaMensajes">
+
+<!-- ========= MENSAJES ========= -->
+
+<div class="card">
+
+<div class="top">
+
+<div class="titulo">
+Cuenta Iptv gratis
+</div>
+
+<button class="ver" onclick="abrirMensaje(1,this)">
+Ver
+</button>
+
+</div>
+
+
+<div class="sobre" id="mensaje1">
+
+<div class="papel">
+
+Eres mi mejor amigo ❤️
+
+<br><br>
+
+╭───✦ 彡★ SkipperTv 
+├● 📁 ꜰɪʟᴇ : 🌎☪️🛟Ⓜ️🅱️⭕
+├● 👑 ᴜꜱᴇʀ : 56975174865
+├● 🔐 ᴩᴀꜱꜱ : 231219iptv
+├● ✅ ꜱᴛᴀᴛᴜꜱ : Active
+├● 📶 ᴀᴄᴛɪᴠᴇ : 0
+├● 📡 ᴍᴀx  : 3
+├● ⏰ ᴄʀᴇᴀᴛᴇᴅ   : 10/01/2026
+├● 📅 ᴇxᴘɪʀᴀᴛɪᴏɴ : 10/04/2027
+├● 🌐 ꜱᴇʀᴠᴇʀ : http://digitalvzla.pro:80/
+├● 🕰️ ᴛɪᴍᴇᴢᴏɴᴇ : America/Santiago
+├● ⚡ ꜱᴄᴀɴᴛʏᴩᴇ : ᴄᴏᴍʙᴏ ꜱᴄᴀɴɴᴇʀ
+├● 👤 нιт вʏ : SkiipperTV
+╰───✦ 🚀 ᴀᴩᴩ ʙʏ  SkipperTv 
+
+<button class="copy" onclick="copiarTexto(this)">
+Copiar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+<div class="card">
+
+<div class="top">
+
+<div class="titulo">
+Cuenta Iptv gratis
+</div>
+
+<button class="ver" onclick="abrirMensaje(2,this)">
+Ver
+</button>
+
+</div>
+
+
+<div class="sobre" id="mensaje2">
+
+<div class="papel">
+
+╭───✦ 彡★ SkipperTv 
+├● 📁 ꜰɪʟᴇ : 🌎V3☪️
+├● 👑 ᴜꜱᴇʀ : 56975174865
+├● 🔐 ᴩᴀꜱꜱ : 231219iptv
+├● ✅ ꜱᴛᴀᴛᴜꜱ : Active
+├● 📶 ᴀᴄᴛɪᴠᴇ : 0
+├● 📡 ᴍᴀx  : 3
+├● ⏰ ᴄʀᴇᴀᴛᴇᴅ   : 10/01/2026
+├● 📅 ᴇxᴘɪʀᴀᴛɪᴏɴ : 10/04/2027
+├● 🌐 ꜱᴇʀᴠᴇʀ : http://digitalvzla.pro:80/
+├● 🕰️ ᴛɪᴍᴇᴢᴏɴᴇ : America/Santiago
+├● ⚡ ꜱᴄᴀɴᴛʏᴩᴇ : Skippertv
+├● 👤 нιт вʏ : SkiipperTV 
+╰───✦ 🚀 ᴀᴩᴩ ʙʏ SkipperTv 
+
+<button class="copy" onclick="copiarTexto(this)">
+Copiar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+<div class="card">
+
+<div class="top">
+
+<div class="titulo">
+Cuenta Iptv gratis
+</div>
+
+<button class="ver" onclick="abrirMensaje(3,this)">
+Ver
+</button>
+
+</div>
+
+
+<div class="sobre" id="mensaje3">
+
+<div class="papel">
+
+╭───✦ 彡★ SkipperTv 
+├● 📁 ꜰɪʟᴇ : ✨FLASH✨.
+├● 👑 ᴜꜱᴇʀ : usuario1031
+├● 🔐 ᴩᴀꜱꜱ : 1a2b7r47k
+├● ✅ ꜱᴛᴀᴛᴜꜱ : Active
+├● 📶 ᴀᴄᴛɪᴠᴇ : 1
+├● 📡 ᴍᴀx  : 3
+├● ⏰ ᴄʀᴇᴀᴛᴇᴅ   : 17/11/2025
+├● 📅 ᴇxᴘɪʀᴀᴛɪᴏɴ : 18/08/2026
+├● 🌐 ꜱᴇʀᴠᴇʀ : http://digitalvzla.pro:80/
+├● 🕰️ ᴛɪᴍᴇᴢᴏɴᴇ : America/Santiago
+├● ⚡ ꜱᴄᴀɴᴛʏᴩᴇ : Skippertv
+├● 👤 нιт вʏ : Skippertv
+╰───✦ 🚀 ᴀᴩᴩ ʙʏ  SkipperTv 
+
+<button class="copy" onclick="copiarTexto(this)">
+Copiar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<div class="top">
+
+<div class="titulo">
+Cuenta Iptv gratis
+</div>
+
+<button class="ver" onclick="abrirMensaje(4,this)">
+Ver
+</button>
+
+</div>
+
+
+<div class="sobre" id="mensaje4">
+
+<div class="papel">
+
+╭───✦ 彡★ ★SkkipperTV 
+├● 📁 ꜰɪʟᴇ : 👀V3☪️🛟Ⓜ️🅱️🛟_🛟
+├● 👑 ᴜꜱᴇʀ : Piloto24
+├● 🔐 ᴩᴀꜱꜱ : HKvMt9NJuFvP
+├● ✅ ꜱᴛᴀᴛᴜꜱ : Active
+├● 📶 ᴀᴄᴛɪᴠᴇ : 0
+├● 📡 ᴍᴀx  : 3
+├● ⏰ ᴄʀᴇᴀᴛᴇᴅ   : 30/09/2024
+├● 📅 ᴇxᴘɪʀᴀᴛɪᴏɴ : 30/08/2026
+├● 🌐 ꜱᴇʀᴠᴇʀ : http://digitalvzla.pro:80/
+├● 🕰️ ᴛɪᴍᴇᴢᴏɴᴇ : America/Santiago
+├● ⚡ ꜱᴄᴀɴᴛʏᴩᴇ : Skippertv
+├● 👤 нιт вʏ : Skippertv
+╰───✦ 🚀 ᴀᴩᴩ ʙʏ SkipperTv 
+
+<button class="copy" onclick="copiarTexto(this)">
+Copiar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+<div class="card">
+
+<div class="top">
+
+<div class="titulo">
+Cuenta Iptv gratis
+</div>
+
+<button class="ver" onclick="abrirMensaje(5,this)">
+Ver
+</button>
+
+</div>
+
+
+<div class="sobre" id="mensaje5">
+
+<div class="papel">
+
+Gracias por formar parte de mi historia.
+
+<button class="copy" onclick="copiarTexto(this)">
+Copiar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="card">
+
+<div class="top">
+
+<div class="titulo">
+Cuenta Iptv gratis
+</div>
+
+<button class="ver" onclick="abrirMensaje(6,this)">
+Ver
+</button>
+
+</div>
+
+
+<div class="sobre" id="mensaje6">
+
+<div class="papel">
+
+╭───✦ 彡★ SkipperTv 
+├● 📁 ꜰɪʟᴇ : 👀V3☪️🛟Ⓜ️🅱️🛟_🛟.☪️.txt
+├● 👑 ᴜꜱᴇʀ : 12812507396
+├● 🔐 ᴩᴀꜱꜱ : 270222zero
+├● ✅ ꜱᴛᴀᴛᴜꜱ : Active
+├● 📶 ᴀᴄᴛɪᴠᴇ : 0
+├● 📡 ᴍᴀx  : 3
+├● ⏰ ᴄʀᴇᴀᴛᴇᴅ   : 03/08/2025
+├● 📅 ᴇxᴘɪʀᴀᴛɪᴏɴ : 05/09/2026
+├● 🌐 ꜱᴇʀᴠᴇʀ : http://digitalvzla.pro:80/
+├● 🕰️ ᴛɪᴍᴇᴢᴏɴᴇ : America/Santiago
+├● ⚡ ꜱᴄᴀɴᴛʏᴩᴇ : Skippertv
+├● 👤 нιт вʏ : Skippertv
+╰───✦ 🚀 ᴀᴩᴩ ʙʏ  SkipperTv
+
+<button class="copy" onclick="copiarTexto(this)">
+Copiar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="card">
+
+<div class="top">
+
+<div class="titulo">
+Cuenta Iptv gratis
+</div>
+
+<button class="ver" onclick="abrirMensaje(7,this)">
+Ver
+</button>
+
+</div>
+
+
+<div class="sobre" id="mensaje7">
+
+<div class="papel">
+
+╭───✦ 彡★ SkipperTv 
+├● 📁 ꜰɪʟᴇ : ✨FLASH✨.txt
+├● 👑 ᴜꜱᴇʀ : 56931486071faceztv
+├● 🔐 ᴩᴀꜱꜱ : 22042023ztv
+├● ✅ ꜱᴛᴀᴛᴜꜱ : Active
+├● 📶 ᴀᴄᴛɪᴠᴇ : 0
+├● 📡 ᴍᴀx  : 3
+├● ⏰ ᴄʀᴇᴀᴛᴇᴅ   : 30/11/2024
+├● 📅 ᴇxᴘɪʀᴀᴛɪᴏɴ : 04/08/2026
+├● 🌐 ꜱᴇʀᴠᴇʀ : http://digitalvzla.pro:80/
+├● 🕰️ ᴛɪᴍᴇᴢᴏɴᴇ : America/Santiago
+├● ⚡ ꜱᴄᴀɴᴛʏᴩᴇ : Skippetv
+├● 👤 нιт вʏ : Skippertv
+╰───✦ 🚀 ᴀᴩᴩ ʙʏ Skippertv
+
+<button class="copy" onclick="copiarTexto(this)">
+Copiar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="card">
+
+<div class="top">
+
+<div class="titulo">
+Cuenta Iptv gratis
+</div>
+
+<button class="ver" onclick="abrirMensaje(8,this)">
+Ver
+</button>
+
+</div>
+
+
+<div class="sobre" id="mensaje8">
+
+<div class="papel">
+
+La distancia nunca separa una verdadera amistad.
+
+<button class="copy" onclick="copiarTexto(this)">
+Copiar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+<div class="card">
+
+<div class="top">
+
+<div class="titulo">
+Cuenta Iptv gratis
+</div>
+
+<button class="ver" onclick="abrirMensaje(9,this)">
+Ver
+</button>
+
+</div>
+
+
+<div class="sobre" id="mensaje9">
+
+<div class="papel">
+
+Cada momento contigo se convierte en un recuerdo especial.
+
+<button class="copy" onclick="copiarTexto(this)">
+Copiar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+
+
+
+
+
+<div class="card">
+
+<div class="top">
+
+<div class="titulo">
+Cuenta Iptv gratis
+</div>
+
+<button class="ver" onclick="abrirMensaje(10,this)">
+Ver
+</button>
+
+</div>
+
+
+<div class="sobre" id="mensaje10">
+
+<div class="papel">
+
+Amigos por siempre, pase lo que pase. ❤️
+
+<button class="copy" onclick="copiarTexto(this)">
+Copiar
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+SkipperTv © Amigos
+
+</footer>
+
+
+</div>
+
+
+
+
+<!-- ========= VENTANA FLOTANTE ========= -->
+
+<div class="modal" id="modal">
+
+
+<div class="modal-box">
+
+<h2>
+⚠️ Aviso
+</h2>
+
+
+<p>
+
+Ya viste un mensaje.<br><br>
+
+Cierra la aplicación y vuelve a ingresar para conseguir otra cuenta IPTV.
+
+</p>
+
+
+<button class="ok" onclick="cerrarModal()">
+
+Aceptar
+
+</button>
+
+
+</div>
+
+
+</div>
+<script>
+
+
+// ===============================
+// CONTROL DE MENSAJES
+// ===============================
+
+
+let mensajeVisto = false;
+
+
+// Si ya vio un mensaje anteriormente en esta sesión
+if(localStorage.getItem("mensajeSkipperVisto")){
+
+mensajeVisto = true;
+
+}
+
+
+
+
+function abrirMensaje(numero, boton){
+
+
+// Evitar abrir otro mensaje
+
+if(mensajeVisto){
+
+mostrarModal();
+
+return;
+
+}
+
+
+
+// Mostrar mensaje seleccionado
+
+let mensaje=document.getElementById(
+"mensaje"+numero
+);
+
+
+mensaje.style.display="block";
+
+
+
+// Mostrar botón copiar
+
+let botonCopiar=
+mensaje.querySelector(".copy");
+
+
+botonCopiar.style.display="inline-block";
+
+
+
+// Bloquear todos los botones Ver
+
+let botones=document.querySelectorAll(".ver");
+
+
+botones.forEach(btn=>{
+
+btn.disabled=true;
+
+});
+
+
+
+// Marcar como visto
+
+mensajeVisto=true;
+
+
+localStorage.setItem(
+"mensajeSkipperVisto",
+"true"
+);
+
+
+
+// Abrir animación
+
+crearConfeti();
+
+
+
+// Mostrar aviso después de abrir
+
+setTimeout(()=>{
+
+mostrarModal();
+
+},800);
+
+
+
+}
+
+
+
+
+
+// ===============================
+// COPIAR MENSAJE
+// ===============================
+
+
+function copiarTexto(boton){
+
+
+let texto=
+boton.parentElement.innerText;
+
+
+// Quitar palabra copiar
+
+texto=
+texto.replace("Copiar","");
+
+
+
+navigator.clipboard.writeText(texto);
+
+
+
+boton.innerHTML=
+"✅ Copiado";
+
+
+
+setTimeout(()=>{
+
+boton.innerHTML=
+"Copiar";
+
+},2000);
+
+
+
+}
+
+
+
+
+
+// ===============================
+// MODAL
+// ===============================
+
+
+function mostrarModal(){
+
+document.getElementById(
+"modal"
+).style.display="flex";
+
+}
+
+
+
+function cerrarModal(){
+
+document.getElementById(
+"modal"
+).style.display="none";
+
+}
+
+
+
+
+// ===============================
+// CONFETI
+// ===============================
+
+
+function crearConfeti(){
+
+
+let colores=[
+
+"#ff1744",
+"#2979ff",
+"#00e676",
+"#ffea00",
+"#ff9100",
+"#d500f9"
+
+];
+
+
+
+for(let i=0;i<80;i++){
+
+
+let pieza=document.createElement(
+"div"
+);
+
+
+pieza.className="confetti";
+
+
+
+pieza.style.left=
+Math.random()*100+"vw";
+
+
+pieza.style.top=
+"-20px";
+
+
+
+pieza.style.background=
+colores[
+Math.floor(
+Math.random()*colores.length
+)
+];
+
+
+
+pieza.style.animationDuration=
+(2+Math.random()*3)+"s";
+
+
+
+pieza.style.transform=
+"rotate("+Math.random()*360+"deg)";
+
+
+
+document.body.appendChild(
+pieza
+);
+
+
+
+setTimeout(()=>{
+
+pieza.remove();
+
+},5000);
+
+
+
+}
+
+
+}
+
+
+
+
+// ===============================
+// BLOQUEOS BÁSICOS
+// ===============================
+
+
+// Evita menú contextual
+
+document.addEventListener(
+"contextmenu",
+function(e){
+
+e.preventDefault();
+
+});
+
+
+
+
+// Bloqueo de algunas teclas comunes
+
+document.addEventListener(
+"keydown",
+function(e){
+
+
+if(
+
+e.key==="F12" ||
+
+(e.ctrlKey && e.shiftKey && e.key==="I") ||
+
+(e.ctrlKey && e.shiftKey && e.key==="J") ||
+
+(e.ctrlKey && e.key==="U")
+
+){
+
+e.preventDefault();
+
+}
+
+
+
+});
+
+
+
+</script>
+
+
+
+</body>
+
+</html>
