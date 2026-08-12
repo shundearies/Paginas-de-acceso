@@ -3,177 +3,456 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Página con Acceso</title>
+<title>Reproductor SkipperTv | Panel de Acceso Premium</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-* { margin:0; padding:0; box-sizing:border-box; }
-html, body { height:100%; font-family: Arial, sans-serif; overflow:hidden; }
-
-/* VIDEO */
-.video-background {
-    position: fixed; top:0; left:0; width:100%; height:100%;
-    z-index:-1;
-}
-.video-background video {
-    width:100%; height:100%; object-fit:cover;
+:root {
+    --primary: #ff3333;
+    --primary-glow: rgba(255, 51, 51, 0.4);
+    --accent: #00c6ff;
+    --accent-glow: rgba(0, 198, 255, 0.3);
+    --dark-bg: #03050d;
+    --card-bg: rgba(10, 15, 30, 0.7);
+    --border-color: rgba(255, 51, 51, 0.15);
 }
 
-/* MARCA DE AGUA (SKIPPERTV PRÓXIMAMENTE) */
-.watermark {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    color: rgba(255, 255, 255, 0.4); /* Color blanco con transparencia */
-    font-size: 12px; /* Letras pequeñas */
-    letter-spacing: 2px;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: var(--dark-bg);
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+}
+
+/* Red neural / Fondo cibernético */
+body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: 
+        linear-gradient(rgba(3, 5, 13, 0.85), rgba(3, 5, 13, 0.95)),
+        radial-gradient(circle at 20% 30%, rgba(0, 198, 255, 0.15), transparent 40%),
+        radial-gradient(circle at 80% 70%, rgba(255, 51, 51, 0.12), transparent 40%);
+    z-index: -2;
+}
+
+/* Rejilla Tecnológica Animada */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    background-position: center;
+    z-index: -1;
+    opacity: 0.5;
+    animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+    0% { background-transform: translateY(0); transform: scale(1); }
+    50% { transform: scale(1.02); }
+    100% { background-transform: translateY(40px); }
+}
+
+/* Contenedor Principal */
+.main-wrapper {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1;
+    gap: 40px;
+}
+
+/* Encabezado / Logo */
+.brand-container {
     text-align: center;
-    pointer-events: none; /* No interfiere con clics */
+    animation: fadeInDown 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.logo-wrapper {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.logo-glow {
+    position: absolute;
+    inset: -10px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+    border-radius: 50%;
+    z-index: -1;
+    animation: pulseGlow 3s ease-in-out infinite;
+}
+
+.app-logo {
+    width: 130px;
+    height: auto;
+    filter: drop-shadow(0 0 15px rgba(0, 198, 255, 0.5));
+    animation: floatLogo 4s ease-in-out infinite;
+}
+
+.app-name {
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ffffff 30%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 5px;
+}
+
+.app-subtitle {
+    font-size: 0.95rem;
+    color: #64748b;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+/* Grid de Información Principal */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    width: 100%;
+    max-width: 850px;
+    animation: fadeInUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.2s backwards;
+}
+
+@media (min-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1.1fr 0.9fr;
+    }
+}
+
+/* Estilo de Tarjetas Sofisticadas */
+.cyber-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 24px;
+    padding: 40px 30px;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease;
+}
+
+.cyber-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+
+.card-clock::before {
+    background: linear-gradient(90deg, transparent, var(--primary), transparent);
+}
+
+.card-code::before {
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.card-label {
+    font-size: 0.85rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Esquinas decorativas de interfaz sci-fi */
+.tech-corner {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
     z-index: 2;
-    animation: fadeIn 2s ease;
+}
+.tc-tl { top: 12px; left: 12px; border-right: none; border-bottom: none; }
+.tc-tr { top: 12px; right: 12px; border-left: none; border-bottom: none; }
+.tc-bl { bottom: 12px; left: 12px; border-right: none; border-top: none; }
+.tc-br { bottom: 12px; right: 12px; border-left: none; border-top: none; }
+
+/* El Reloj Digital Gigante */
+.digital-clock {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 4rem;
+    font-weight: 700;
+    color: var(--primary);
+    text-shadow: 0 0 20px var(--primary-glow), 0 0 40px rgba(255, 51, 51, 0.2);
+    letter-spacing: 2px;
+    line-height: 1;
+    margin-bottom: 10px;
 }
 
-@keyframes fadeIn {
-    from {opacity:0;} to {opacity:1;}
+.digital-date {
+    font-size: 1rem;
+    color: #cbd5e1;
+    letter-spacing: 1px;
 }
 
-/* OFFLINE CANVAS */
-#offlineCanvas {
-    display:none;
-    position:fixed;
-    top:0; left:0;
-    width:100%; height:100%;
-    background:black;
-    z-index:5;
+/* Bloque del Código Clave */
+.access-code-display {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: #ffffff;
+    text-shadow: 0 0 25px rgba(255,255,255,0.2), 0 0 10px var(--accent-glow);
+    letter-spacing: 4px;
+    line-height: 1;
+    margin-bottom: 20px;
+    background: linear-gradient(to bottom, #ffffff, #cbd5e1);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* OFFLINE PANEL */
-.offline-box {
-    display:none;
-    position:fixed;
-    top:50%; left:50%;
-    transform:translate(-50%,-50%);
-    background:#0a0a0a;
-    border:2px solid #00ffe0;
-    border-radius:20px;
-    padding:40px;
-    text-align:center;
-    color:white;
-    z-index:10;
-    box-shadow:0 0 25px rgba(0,255,224,0.7);
-    animation: popup 0.5s ease;
-}
-.offline-box h1 {
-    font-size:28px;
-    margin-bottom:15px;
-}
-.offline-box p {
-    color:#bbb;
+.btn-action {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    padding: 12px 28px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
-@keyframes popup {
-    0% {transform:translate(-50%,-60%) scale(0.6); opacity:0;}
-    100% {transform:translate(-50%,-50%) scale(1); opacity:1;}
+.btn-action:hover {
+    background: white;
+    color: var(--dark-bg);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Indicador de actualización activa */
+.sync-indicator {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: #4ade80;
+}
+
+.pulse-dot {
+    width: 6px;
+    height: 6px;
+    background-color: #4ade80;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #4ade80;
+    animation: pulseDot 1.5s infinite;
+}
+
+/* Footer de la página */
+footer {
+    text-align: center;
+    padding: 25px;
+    font-size: 0.8rem;
+    color: #475569;
+    letter-spacing: 1px;
+    border-top: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+/* Animaciones */
+@keyframes floatLogo {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes pulseGlow {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 0.9; transform: scale(1.1); }
+}
+
+@keyframes pulseDot {
+    0%, 100% { transform: scale(1); opacity: 0.4; }
+    50% { transform: scale(1.4); opacity: 1; }
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Adaptabilidad Móvil */
+@media (max-width: 480px) {
+    .digital-clock { font-size: 2.8rem; }
+    .access-code-display { font-size: 3.8rem; }
+    .app-name { font-size: 1.8rem; }
+    .cyber-card { padding: 30px 20px; }
 }
 </style>
 </head>
-
 <body>
 
-<div class="video-background">
-    <video autoplay muted loop playsinline>
-        <source src="https://moewalls.com/wp-content/uploads/preview/2026/magical-sakura-tree-preview.webm" type="video/webm">
-    </video>
-</div>
+<div class="main-wrapper">
+    
+    <!-- Encabezado con Logo -->
+    <header class="brand-container">
+        <div class="logo-wrapper">
+            <div class="logo-glow"></div>
+            <img class="app-logo" src="https://raw.githubusercontent.com/shundearies/skipperImg/refs/heads/main/logo_inicio.png" alt="SkipperTv Logo">
+        </div>
+        <h1 class="app-name">Reproductor SkipperTv</h1>
+        <p class="app-subtitle">Premium Access Portal</p>
+    </header>
 
-<div class="watermark">
-    SKIPPERTV <br> CARGANDO CONTENIDO
-</div>
+    <!-- Grid Central -->
+    <main class="dashboard-grid">
+        
+        <!-- Tarjeta del Reloj Digital Rojo -->
+        <div class="cyber-card card-clock">
+            <div class="tech-corner tc-tl"></div>
+            <div class="tech-corner tc-tr"></div>
+            <div class="tech-corner tc-bl"></div>
+            <div class="tech-corner tc-br"></div>
+            
+            <div class="card-label">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16" style="color: var(--primary);">
+                    <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 1 1 14 0z"/>
+                </svg>
+                Tiempo de Servidor Interno
+            </div>
+            
+            <div class="digital-clock" id="clockDisplay">00:00:00</div>
+            <div class="digital-date" id="dateDisplay">Cargando fecha...</div>
+            
+            <div class="sync-indicator">
+                <div class="pulse-dot"></div>
+                <span>Sincronizado en tiempo real</span>
+            </div>
+        </div>
 
-<canvas id="offlineCanvas"></canvas>
+        <!-- Tarjeta del Código de Acceso -->
+        <div class="cyber-card card-code">
+            <div class="tech-corner tc-tl"></div>
+            <div class="tech-corner tc-tr"></div>
+            <div class="tech-corner tc-bl"></div>
+            <div class="tech-corner tc-br"></div>
+            
+            <div class="card-label">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16" style="color: var(--accent);">
+                    <path d="M3.5 11.5a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+                Clave de Acceso Actual
+            </div>
+            
+            <div class="access-code-display" id="accessCode">09871</div>
+            
+            <button class="btn-action" id="copyBtn" onclick="copyCode()">
+                <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                    <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                </svg>
+                <span>Copiar Clave</span>
+            </button>
+        </div>
 
-<div class="offline-box" id="offlineBox">
-    <h1>Sin conexión</h1>
-    <p>No se puede acceder al contenido.<br>Verifica tu conexión a Internet.</p>
+    </main>
+
+    <!-- Pie de página -->
+    <footer>
+        &copy; 2026 SKIPPERTV · El código se actualiza de manera automática cada 24 horas.
+    </footer>
+
 </div>
 
 <script>
-/* BLOQUEO GLOBAL DE ERRORES */
-window.onerror = function () {
-    return true; 
-};
-
-window.addEventListener("unhandledrejection", function (e) {
-    e.preventDefault();
-});
-
-/* OFFLINE DETECTION */
-const canvas = document.getElementById('offlineCanvas');
-const ctx = canvas.getContext('2d');
-let stars = [];
-
-function resizeCanvas(){
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-}
-resizeCanvas();
-window.addEventListener('resize', resizeCanvas);
-
-function initStars(){
-    stars = [];
-    for(let i=0;i<100;i++){
-        stars.push({
-            x: Math.random()*canvas.width,
-            y: Math.random()*canvas.height,
-            size: Math.random()*2,
-            speed: Math.random()*0.5
-        });
-    }
+// Función del reloj digital en tiempo real
+function updateClock() {
+    const now = new Date();
+    
+    // Formatear hora (HH:MM:SS)
+    let hours = String(now.getHours()).padStart(2, '0');
+    let minutes = String(now.getMinutes()).padStart(2, '0');
+    let seconds = String(now.getSeconds()).padStart(2, '0');
+    
+    document.getElementById('clockDisplay').textContent = `${hours}:${minutes}:${seconds}`;
+    
+    // Formatear Fecha elegante
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    let dateStr = now.toLocaleDateString('es-ES', options);
+    // Capitalizar primera letra
+    dateStr = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+    document.getElementById('dateDisplay').textContent = dateStr;
 }
 
-function animateStars(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-    ctx.fillStyle = "white";
-    stars.forEach(s=>{
-        ctx.beginPath();
-        ctx.arc(s.x, s.y, s.size, 0, Math.PI*2);
-        ctx.fill();
-
-        s.y += s.speed;
-        if(s.y > canvas.height) s.y = 0;
+// Función interactiva para copiar el código
+function copyCode() {
+    const codeText = document.getElementById('accessCode').textContent;
+    navigator.clipboard.writeText(codeText).then(() => {
+        const btn = document.getElementById('copyBtn');
+        const originalHTML = btn.innerHTML;
+        
+        btn.innerHTML = `
+            <svg width="14" height="14" fill="currentColor" viewBox="0 0 16 16">
+                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+            </svg>
+            <span>¡Copiado!</span>
+        `;
+        btn.style.background = '#4ade80';
+        btn.style.color = '#03050d';
+        btn.style.borderColor = '#4ade80';
+        
+        setTimeout(() => {
+            btn.innerHTML = originalHTML;
+            btn.style.background = 'rgba(255, 255, 255, 0.04)';
+            btn.style.color = '#e2e8f0';
+            btn.style.borderColor = 'rgba(255, 255, 255, 0.1)';
+        }, 2000);
+    }).catch(err => {
+        console.error('No se pudo copiar el código automáticamente: ', err);
     });
-    requestAnimationFrame(animateStars);
 }
 
-function updateStatus(){
-    const video = document.querySelector('.video-background');
-    const watermark = document.querySelector('.watermark');
-    const box = document.getElementById('offlineBox');
-
-    if(!navigator.onLine){
-        video.style.display = 'none';
-        watermark.style.display = 'none';
-        canvas.style.display = 'block';
-        box.style.display = 'block';
-
-        initStars();
-        animateStars();
-    } else {
-        video.style.display = 'block';
-        watermark.style.display = 'block';
-        canvas.style.display = 'none';
-        box.style.display = 'none';
-    }
-}
-
-window.addEventListener('load', updateStatus);
-window.addEventListener('online', updateStatus);
-window.addEventListener('offline', updateStatus);
-
-/* REDIRECCIÓN AUTOMÁTICA A LOS 40 SEGUNDOS */
-setTimeout(function() {
-    window.location.href = "https://raw.githubusercontent.com/Duartegame/listas/refs/heads/main/colombia.m3u";
-}, 40000);
+// Inicializar el reloj y actualizar cada segundo
+setInterval(updateClock, 1000);
+updateClock();
 </script>
 
 </body>
